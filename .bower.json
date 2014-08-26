@@ -1,0 +1,24 @@
+{
+  "name": "trutek-tri-drawer-panel",
+  "description": "expanded the core drawer panel to have 2 responsive points.",
+  "private": false,
+  "authors":[{"name":"Ron Truex", "email":"ron@trutekinnovations.com"}]
+  "dependencies": {
+    "core-selector": "Polymer/core-selector#>=0.3.0 <1.0.0",
+    "core-media-query": "Polymer/core-media-query#>=0.3.0 <1.0.0"
+  },
+  "repository": {
+  "type": "git",
+  "url": "git://github.com/tikicoder/trutek-tri-drawer-panel.git"
+}
+  "homepage": "https://github.com/tikicoder/trutek-tri-drawer-panel",
+  "_release": "0.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.1",
+    "commit": "d06001345fa634c3c82794e8ab5234ec61dc9ff9"
+  },
+  "_source": "git://github.com/tikicoder/trutek-tri-drawer-panel.git",
+  "_target": ">=0.0.1 <1.0.0",
+  "_originalSource": "tikicoder/trutek-tri-drawer-panel"
+}
