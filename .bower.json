@@ -11,7 +11,7 @@
   "_resolution": {
     "type": "version",
     "tag": "0.0.1",
-    "commit": "1ddf02182a57786bb97764dcabf05dee7fcac288"
+    "commit": "f26bcd88b059af30eb874f89e7f805023d0bf409"
   },
   "_source": "https://github.com/tikicoder/trutek-tri-drawer-panel.git",
   "_target": ">=0.0.1 <1.0.0",
