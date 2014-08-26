@@ -1,0 +1,138 @@
+<!--
+Copyright (c) 2014 TruTek LLC Authors. All rights reserved.
+This code may only be used under the BSD style license included in the project.
+-->
+
+<link rel="import" href="../core-media-query/core-media-query.html">
+<link rel="import" href="../core-selector/core-selector.html">
+
+<polymer-element name="trutek-tri-drawer-panel">
+<template>
+
+  <link rel="stylesheet" href="trutek-tri-drawer-panel.css">
+
+  <core-media-query query="max-width: {{responsiveWidthStep2 }}" queryMatches="{{queryMatchesStep2}}"></core-media-query>
+  <core-media-query query="max-width: {{responsiveWidthStep1 }}" queryMatches="{{queryMatchesStep1}}"></core-media-query>
+ 
+  <core-selector class="{{ {'narrow-layout' : queryMatchesStep2, 'medium-layout' : (queryMatchesStep1 && !queryMatchesStep2), transition : transition} | tokenList }}" valueattr="id" selected="{{selected}}">
+
+    <div id="main" >
+      <content select="[main]"></content>
+      <div id="scrim" on-tap="{{togglePanel}}"></div>
+    </div>
+    
+    <div id="drawer">
+      <content select="[drawer]"></content>
+    </div>
+
+  </core-selector>
+
+</template>
+<script>
+
+  Polymer('trutek-tri-drawer-panel', {
+    /**
+     * Fired when the narrow layout changes.
+     * 
+     * @event core-responsive-change
+     * @param {Object} detail
+     * @param {boolean} detail.narrow true if the panel is in narrow layout.
+     */
+
+    publish: {
+      /**
+       * Max-width when the panel changes to narrow layout.
+       *
+       * @attribute responsiveWidth
+       * @type string
+       * @default '640px'
+       */
+      responsiveWidth: '640px',
+	  responsiveWidthStep1:'1000px',
+	  responsiveWidthStep2:'600px',
+      
+      /**
+       * The panel that is being selected. `drawer` for the drawer panel and
+       * `main` for the main panel.
+       *
+       * @attribute selected
+       * @type string
+       * @default null
+       */
+      selected: {value: null, reflect: true},
+      
+      /**
+       * The panel to be selected when `core-drawer-panel` changes to narrow 
+       * layout.
+       *
+       * @attribute defaultSelected
+       * @type string
+       * @default 'main'
+       */
+      defaultSelected: 'main',
+    
+      /**
+       * Returns true if the panel is in narrow layout.  This is useful if you
+       * need to show/hide elements based on the layout.
+       *
+       * @attribute narrow
+       * @type boolean
+       * @default false
+       */
+      narrow: {value: false, reflect: true}
+    },
+    
+    transition: false,
+    
+    domReady: function() {
+      // to avoid transition at the beginning e.g. page loads
+      // NOTE: domReady is already raf delayed and delaying another frame
+      // ensures a layout has occurred.
+      this.async(function() {
+        this.transition = true;
+      });
+	  
+	  this.selected=this.defaultSelected;
+    },
+
+    togglePanel: function() {
+      this.selected = this.selected === 'main' ? 'drawer' : 'main';
+    },
+    
+    openDrawer: function() {
+      this.selected = 'drawer';
+    },
+    
+    closeDrawer: function() {
+      this.selected = 'main';
+    },
+
+    queryMatchesStep2Changed: function() {
+
+      if (this.queryMatchesStep2) {
+        this.selected = this.defaultSelected;
+		this.responsiveWidth=this.responsiveWidthStep2;
+      }
+	  else
+		this.responsiveWidth=this.responsiveWidthStep1;
+
+      this.narrow = true;
+      this.fire('core-responsive-change', {narrow: this.narrow});
+    },
+	queryMatchesStep1Changed: function() {
+      if ((this.queryMatchesStep1 && !this.queryMatchesStep2) || (this.queryMatchesStep1 && this.queryMatchesStep2)) {
+        this.selected = this.defaultSelected;
+		if((this.queryMatchesStep1 && this.queryMatchesStep2))
+			this.responsiveWidth=this.responsiveWidthStep2;
+		else
+			this.responsiveWidth=this.responsiveWidthStep1;
+      }
+
+      this.narrow = ((this.queryMatchesStep1 && !this.queryMatchesStep2) || (this.queryMatchesStep1 && this.queryMatchesStep2));
+      this.fire('core-responsive-change', {narrow: this.narrow});
+    }
+
+  });
+
+</script>
+</polymer-element>
