@@ -1,7 +1,7 @@
 {
   "name": "trutek-tri-drawer-panel",
   "description": "expanded the core drawer panel to have 2 responsive points.",
-  "private": false,
+  "private": true,
   "authors":[{"name":"Ron Truex", "email":"ron@trutekinnovations.com"}]
   "dependencies": {
     "core-selector": "Polymer/core-selector#>=0.3.0 <1.0.0",
